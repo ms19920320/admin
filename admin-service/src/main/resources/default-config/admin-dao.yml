@@ -1,0 +1,4 @@
+ccuap:
+  mybatis:
+    scan-packages: com.citycloud.design.admin.dao
+    mapper-path: classpath*:mybatis-mapper/**/*.xml

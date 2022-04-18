@@ -1,0 +1,92 @@
+# ============================================================================
+# 静态配置（应用启动后无法通过配置中心动态调整）
+# ============================================================================
+spring:
+  # 配置中心
+  cloud:
+    nacos:
+      username: ccuap
+      password: ccuap
+      config:
+        enabled: true
+        server-addr: 172.16.1.200:28848
+        file-extension: yml
+        refresh-enabled: true
+        namespace: d9101f2c-ca91-4149-beb7-9ddab616b6ac
+        name: application
+        group: DEFAULT_GROUP
+        extension-configs:
+          - data-id: application-message.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: application-others.yml
+            group: DEFAULT_GROUP
+            refresh: true
+      discovery:
+        enabled: true
+        server-addr: 172.16.1.200:28848
+        namespace: d9101f2c-ca91-4149-beb7-9ddab616b6ac
+
+  # redis连接池配置
+  redis:
+    host: 172.16.1.200
+    port: 6379
+    password: 111111
+
+  # 应用名称
+  application:
+    name: web-example
+
+# 服务地址、上下文配置。
+server:
+  address: 172.16.1.1
+  port: 8080
+  servlet:
+    # （PS：上下文名必须要和应用名保持一致）
+    context-path: /${spring.application.name}
+
+# Swagger配置信息
+knife4j:
+  enable: true
+  config:
+    title: Web样例
+    description: Web样例程序API接口
+    version: 3.0.0版本
+    contact:
+      name: sample
+      email: sample@citycloud.com.cn
+      url: https://www.citycloud.com.cn/
+
+# 统一研发平台组件配置
+ccuap:
+  # 数据源配置
+  datasource:
+    config:
+      # 业务数据库
+      - name: bizdb
+        db-type: mysql
+        host: 172.16.1.200:3306
+        database: bizdb
+        username: root
+        password: 5cf8c49db77adb0e90b21aef831928d2
+      # 系统数据库
+      - name: sysdb
+        db-type: mysql
+        host: 172.16.1.200:3303
+        database: sysdb
+        username: root
+        password: 5cf8c49db77adb0e90b21aef831928d2
+
+    # 默认数据源
+    default-datasource: bizdb
+
+    # mysql连接池配置（【注意】生产环境需要根据实际环境调整连接池配置。）
+    mysql:
+      druid:
+        initial-size: 100
+        min-idle: 100
+        max-active: 500
+        stat-filter:
+          slow-sql-millis: 2000
+          log-slow-sql: true
+          slow-sql-log-level: warn

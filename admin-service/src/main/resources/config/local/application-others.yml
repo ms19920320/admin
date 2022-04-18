@@ -1,0 +1,72 @@
+# ============================================================================
+# 动态配置（可以通过配置中心动态调整）
+# ============================================================================
+ccuap:
+  login:
+    # 免登录URL配置
+    ignore-urls:
+      - /**/api/user/login
+
+  submit:
+    # 表单重复提交检验配置
+    resubmit-check:
+      enable: true
+
+  # API接口日志输出配置
+  api-logger:
+    # 请求日志开关
+    requestLogEnable: true
+    # 响应时间日志开关
+    responseTimeLogEnable: true
+    # 响应数据日志开关（生产环境下建议配置成false，避免日志量过大）
+    responseDataLogEnable: false
+    # 慢接口日志开关
+    slow-api-log-enable: true
+    # 响应时间3秒及以上为慢接口（可根据需求调整）
+    slow-api-millis: 3000
+
+  # IP地址黑白名单配置，默认关闭。
+  # 通常IP地址拦截会在SLB、WAF层进行拦截控制，如果项目中没有这些组件，可考虑在应用层进行拦截。
+  # 请谨慎使用该功能，确保IP地址判断准确后再配置。黑白名单enable都为true时，先判断白名单，再判断黑名单。
+  ip-address-interceptor:
+    white-list-config:
+      enable: false
+      ip: 172.16.*.*
+    black-list-config:
+      enable: false
+      ip: 172.16.1.1
+
+  # @Cacheable注释缓存配置
+  cache:
+    cache-item-map:
+      findUserList:
+        # 缓存时间（秒）
+        expirySeconds: 600
+        # 如果希望缓存key不加上应用名前缀，配置为true。
+        withOutKeyPrefix: true
+        # 缓存开关，默认为true。
+        enable: true
+      findUserListByPage:
+        expirySeconds: 60
+      findUserById:
+        expirySeconds: 600
+
+  # 定时任务配置
+  task:
+    config:
+        # 任务名称
+      - name: AaSimpleTask
+        # 执行器类全名
+        executor: com.citycloud.ccuap.exampleweb.common.task.AaSimpleTask
+        # 执行周期
+        cron: "0 */1 * * * ?"
+        # 任务开关（true：启动，false：停止）
+        enable: true
+        # 是否允许并行执行（true：不同节点可同时运行该定时任务，false：不同节点统一时刻只允许一个节点运行该定时任务）
+        parallel: false
+
+      - name: BbSimpleTask
+        executor: com.citycloud.taskexample.biz.common.task.BbSimpleTask
+        cron: "0 */1 * * * ?"
+        enable: true
+        parallel: false
