@@ -1,1 +1,3 @@
 /.idea/
+/admin-api/target/
+/admin-service/target/classes/

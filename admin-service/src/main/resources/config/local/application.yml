@@ -9,7 +9,7 @@ spring:
       password: ccuap
       config:
         enabled: true
-        server-addr: 172.16.1.200:28848
+        server-addr: 124.220.21.222:8848
         file-extension: yml
         refresh-enabled: true
         namespace: d9101f2c-ca91-4149-beb7-9ddab616b6ac
@@ -24,14 +24,14 @@ spring:
             refresh: true
       discovery:
         enabled: true
-        server-addr: 172.16.1.200:28848
+        server-addr: 124.220.21.222:8848
         namespace: d9101f2c-ca91-4149-beb7-9ddab616b6ac
 
   # redis连接池配置
   redis:
-    host: 172.16.1.200
+    host: 124.220.21.222
     port: 6379
-    password: 111111
+    password: 123456
 
   # 应用名称
   application:
@@ -39,8 +39,8 @@ spring:
 
 # 服务地址、上下文配置。
 server:
-  address: 172.16.1.1
-  port: 8080
+  address: localhost
+  port: 8090
   servlet:
     # （PS：上下文名必须要和应用名保持一致）
     context-path: /${spring.application.name}
@@ -65,17 +65,17 @@ ccuap:
       # 业务数据库
       - name: bizdb
         db-type: mysql
-        host: 172.16.1.200:3306
-        database: bizdb
+        host: localhost:3306
+        database: admin
         username: root
-        password: 5cf8c49db77adb0e90b21aef831928d2
+        password: 123456
       # 系统数据库
       - name: sysdb
         db-type: mysql
-        host: 172.16.1.200:3303
-        database: sysdb
+        host: localhost:3306
+        database: admin
         username: root
-        password: 5cf8c49db77adb0e90b21aef831928d2
+        password: 123456
 
     # 默认数据源
     default-datasource: bizdb

@@ -5,7 +5,7 @@ ccuap:
   login:
     # 免登录URL配置
     ignore-urls:
-      - /**/api/user/login
+      - /**
 
   submit:
     # 表单重复提交检验配置
